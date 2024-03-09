@@ -156,6 +156,14 @@ namespace MessagePack.Generator
             {
                 //   MSBuildLocator.Unregister();
             }
+            var allFormatterFile = Directory.GetFiles(args.ClientOutput, "MessagePack_*", SearchOption.AllDirectories);
+            foreach (var item in allFormatterFile)
+            {
+                Console.WriteLine("额外处理文件:" + item);
+                var content = File.ReadAllText(item);
+                content = "using Geek.Server.Proto;\n" + content;
+                File.WriteAllText(item, content);
+            }
         }
 
         static private async Task<(Workspace Workspace, Compilation Compilation)> OpenMSBuildProjectAsync(string projectPath, CancellationToken cancellationToken)
