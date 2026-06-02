@@ -14,13 +14,6 @@ namespace {{space}}
 		{{sidcode}};
 		{{~end~}}
 
-		{{~ if ismsg~}}
-		[IgnoreMember]
-		public const int MsgID = Sid;
-		[IgnoreMember]
-		public override int MsgId => MsgID;
-		{{~ end ~}}
-
 		{{~ for field in fields ~}}
 		{{~field.propcode~}}
 		{{~ end ~}}

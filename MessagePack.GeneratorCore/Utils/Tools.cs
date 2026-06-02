@@ -24,12 +24,22 @@ namespace MessagePackCompiler
 
         public static void CreateDirectory(this string path, bool delFirset = true)
         {
+            if (path.Equals("no", StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
             if (Directory.Exists(path))
             {
                 if (delFirset)
                 {
-                    Directory.Delete(path, true);
-                    Directory.CreateDirectory(path);
+                    foreach (var file in Directory.GetFiles(path, "*", SearchOption.AllDirectories))
+                    {
+                        if (!file.EndsWith(".meta", StringComparison.OrdinalIgnoreCase))
+                        {
+                            File.Delete(file);
+                        }
+                    }
                 }
             }
             else
